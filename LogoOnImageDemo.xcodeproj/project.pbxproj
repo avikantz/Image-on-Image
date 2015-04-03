@@ -14,9 +14,9 @@
 		590259ED1AC9858200469C57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 590259EC1AC9858200469C57 /* Images.xcassets */; };
 		590259F01AC9858200469C57 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 590259EE1AC9858200469C57 /* LaunchScreen.xib */; };
 		590259FC1AC9858200469C57 /* LogoOnImageDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 590259FB1AC9858200469C57 /* LogoOnImageDemoTests.m */; };
-		59025A071AC9880300469C57 /* UIImage+LogoOnImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 59025A061AC9880300469C57 /* UIImage+LogoOnImage.m */; };
 		59025A0A1AC9AF2E00469C57 /* 01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 59025A091AC9AF2E00469C57 /* 01.jpg */; };
 		59025A0C1AC9D0D700469C57 /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 59025A0B1AC9D0D700469C57 /* 02.jpg */; };
+		595C43661ACE83AB0068CC18 /* UIImage+ThingsOnImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 595C43651ACE83AB0068CC18 /* UIImage+ThingsOnImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,10 +43,10 @@
 		590259F51AC9858200469C57 /* LogoOnImageDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogoOnImageDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		590259FA1AC9858200469C57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		590259FB1AC9858200469C57 /* LogoOnImageDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogoOnImageDemoTests.m; sourceTree = "<group>"; };
-		59025A051AC9880300469C57 /* UIImage+LogoOnImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+LogoOnImage.h"; path = "UIImage+LogoOnImage/UIImage+LogoOnImage.h"; sourceTree = "<group>"; };
-		59025A061AC9880300469C57 /* UIImage+LogoOnImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+LogoOnImage.m"; path = "UIImage+LogoOnImage/UIImage+LogoOnImage.m"; sourceTree = "<group>"; };
 		59025A091AC9AF2E00469C57 /* 01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 01.jpg; sourceTree = "<group>"; };
 		59025A0B1AC9D0D700469C57 /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
+		595C43641ACE83AB0068CC18 /* UIImage+ThingsOnImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ThingsOnImage.h"; path = "UIImage+ThingsOnImage/UIImage+ThingsOnImage.h"; sourceTree = "<group>"; };
+		595C43651ACE83AB0068CC18 /* UIImage+ThingsOnImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ThingsOnImage.m"; path = "UIImage+ThingsOnImage/UIImage+ThingsOnImage.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 		590259DE1AC9858200469C57 /* LogoOnImageDemo */ = {
 			isa = PBXGroup;
 			children = (
-				59025A081AC9880800469C57 /* LogoOnImage */,
+				59025A081AC9880800469C57 /* Things On Image */,
 				590259E61AC9858200469C57 /* ViewController.h */,
 				590259E71AC9858200469C57 /* ViewController.m */,
 				590259E91AC9858200469C57 /* Main.storyboard */,
@@ -129,13 +129,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		59025A081AC9880800469C57 /* LogoOnImage */ = {
+		59025A081AC9880800469C57 /* Things On Image */ = {
 			isa = PBXGroup;
 			children = (
-				59025A051AC9880300469C57 /* UIImage+LogoOnImage.h */,
-				59025A061AC9880300469C57 /* UIImage+LogoOnImage.m */,
+				595C43641ACE83AB0068CC18 /* UIImage+ThingsOnImage.h */,
+				595C43651ACE83AB0068CC18 /* UIImage+ThingsOnImage.m */,
 			);
-			name = LogoOnImage;
+			name = "Things On Image";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,7 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				590259E81AC9858200469C57 /* ViewController.m in Sources */,
-				59025A071AC9880300469C57 /* UIImage+LogoOnImage.m in Sources */,
+				595C43661ACE83AB0068CC18 /* UIImage+ThingsOnImage.m in Sources */,
 				590259E51AC9858200469C57 /* AppDelegate.m in Sources */,
 				590259E21AC9858200469C57 /* main.m in Sources */,
 			);
@@ -368,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LogoOnImageDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -378,6 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LogoOnImageDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -436,6 +438,7 @@
 				59025A011AC9858200469C57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59025A021AC9858200469C57 /* Build configuration list for PBXNativeTarget "LogoOnImageDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +447,7 @@
 				59025A041AC9858200469C57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 - (IBAction)shuffleAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *informationLabel;
 
 @end
 

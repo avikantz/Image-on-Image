@@ -1,12 +1,12 @@
 //
-//  UIImage+LogoOnImage.m
+//  UIImage+ThingsOnImage.m
 //  LogoOnImageDemo
 //
-//  Created by Avikant Saini on 3/30/15.
+//  Created by Avikant Saini on 4/3/15.
 //  Copyright (c) 2015 avikantz. All rights reserved.
 //
 
-#import "UIImage+LogoOnImage.h"
+#import "UIImage+ThingsOnImage.h"
 
 #define SELF_WIDTH self.size.width
 #define SELF_HEIGHT self.size.height
@@ -14,7 +14,9 @@
 
 LogoPosition randomPositon;
 
-@implementation UIImage (LogoOnImage)
+@implementation UIImage (ThingsOnImage)
+
+#pragma mark - Image on Image
 
 -(UIImage *)addDefaultLogoToRandomPosition {
 	randomPositon = arc4random_uniform(19);
@@ -129,6 +131,41 @@ LogoPosition randomPositon;
 	return frameForNewImage;
 }
 
+#pragma mark - Text on Image
+
+-(UIImage *)addText:(NSString *)text withFontName:(NSString *)fontName andSize:(CGFloat)fontSize Color:(UIColor *)color Alignment:(NSTextAlignment)textAlignment OutlineColor:(UIColor *)outlineColor OutlineThickness:(CGFloat)outlineThickness Shadow:(NSShadow *)shadow atPosition:(TextFrame)textFrame {
+	UIGraphicsBeginImageContext(self.size);
+	[self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	paragraphStyle.alignment = textAlignment;
+	UIFont *font = [UIFont fontWithName:fontName size:fontSize];
+	NSDictionary *textAttributes = @{NSForegroundColorAttributeName : color,
+									 NSFontAttributeName: font,
+									 NSShadowAttributeName: shadow,
+									 NSParagraphStyleAttributeName: paragraphStyle,
+									 NSStrokeWidthAttributeName: [NSNumber numberWithFloat:outlineThickness],
+									 NSStrokeColorAttributeName:outlineColor};
+	CGSize maximumLabelSize = [self getFrameForText:textFrame].size;
+	CGRect textRect = [text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
+	while (ceilf(textRect.size.height) >= ceilf(maximumLabelSize.height)){
+		fontSize -= 2.f;
+		UIFont *font = [UIFont fontWithName:fontName size:fontSize];
+		textAttributes = @{NSForegroundColorAttributeName : color,
+										 NSFontAttributeName: font,
+										 NSShadowAttributeName: shadow,
+										 NSParagraphStyleAttributeName: paragraphStyle,
+										 NSStrokeWidthAttributeName: [NSNumber numberWithFloat:outlineThickness],
+										 NSStrokeColorAttributeName:outlineColor};
+		textRect = [text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:textAttributes context:nil];
+	}
+	[text drawInRect:[self getFrameForText:textFrame] withAttributes:textAttributes];
+	UIImage *NewImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return NewImage;
+}
+
+#pragma mark - Other
+
 -(CGRect)getBorderRectForImage:(UIImage *)image Scale:(CGFloat)scale andPosition:(ImagePosition)position {
 	CGRect frameForImage;
 	if (scale <= 0)
@@ -158,64 +195,72 @@ LogoPosition randomPositon;
 			frameForImage = CGRectMake((scale - 1)*SELF_WIDTH/scale, SELF_HEIGHT - SELF_WIDTH/(scale*I_W_H), SELF_WIDTH/scale, SELF_WIDTH/(scale*I_W_H));
 			break;
 		case ImagePositionRandom:
-			frameForImage = [self getBorderRectForImage:image Scale:arc4random_uniform(10) andPosition:arc4random_uniform(9)];
+			frameForImage = [self getBorderRectForImage:image Scale:scale andPosition:arc4random_uniform(9)];
 		default:
 			break;
 	}
 	return frameForImage;
 }
 
-#pragma mark - Get a naming for the position for the glory of the Sontaran Smpire
-
--(NSString *)getTextForRandomPosition {
-	return [self textForImagePosition:randomPositon];
++(NSString *)getTextForBlendMode:(CGBlendMode)blendMode {
+	NSArray *blendModes = @[@"Blend Mode: Normal",
+							@"Blend Mode: Multiply",
+							@"Blend Mode: Screen",
+							@"Blend Mode: Overlay",
+							@"Blend Mode: Darken",
+							@"Blend Mode: Lighten",
+							@"Blend Mode: Color Dodge",
+							@"Blend Mode: Color Burn",
+							@"Blend Mode: Soft Light",
+							@"Blend Mode: Hard Light",
+							@"Blend Mode: Difference",
+							@"Blend Mode: Exclusion",
+							@"Blend Mode: Hue",
+							@"Blend Mode: Saturation",
+							@"Blend Mode: Color",
+							@"Blend Mode: Luminosity",
+							@"Blend Mode: Clear",
+							@"Blend Mode: Copy",
+							@"Blend Mode: Source In",
+							@"Blend Mode: Source Out",
+							@"Blend Mode: Source Atop",
+							@"Blend Mode: Destination Over",
+							@"Blend Mode: Destination In",
+							@"Blend Mode: Destination Out",
+							@"Blend Mode: Destination Atop",
+							@"Blend Mode: XOR",
+							@"Blend Mode: Plus Darker",
+							@"Blend Mode: Plus Lighter"];
+	return [blendModes objectAtIndex:blendMode];
 }
 
--(NSString *)textForImagePosition:(LogoPosition)position {
-	NSString *text;
-	switch (position) {
-		case LogoPositionTopLeft3: text = @"Top Left, 3x3";
+-(CGRect)getFrameForText:(TextFrame)textFrame {
+	CGRect rect;
+	switch (textFrame) {
+		case TextFrameWhole: rect = CGRectMake(0, 0, SELF_WIDTH, SELF_HEIGHT);
 			break;
-		case LogoPositionTopCenter3: text = @"Top Center, 3x3";
+		case TextFrameTopHalf: rect = CGRectMake(0, 0, SELF_WIDTH, SELF_HEIGHT/2);
 			break;
-		case LogoPositionTopRight3: text = @"Top Right, 3x3";
+		case TextFrameBottomHalf: rect = CGRectMake(0, SELF_HEIGHT/2, SELF_WIDTH, SELF_HEIGHT/2);
 			break;
-		case LogoPositionMiddleLeft3: text = @"Middle Left, 3x3";
+		case TextFrameTopThird: rect = CGRectMake(0, 0, SELF_WIDTH, SELF_HEIGHT/3);
 			break;
-		case LogoPositionMiddle3: text = @"Middle, 3x3";
+		case TextFrameCenterThird: rect = CGRectMake(0, SELF_HEIGHT/3, SELF_WIDTH, SELF_HEIGHT/3);
 			break;
-		case LogoPositionMiddleRight3: text = @"Middle Right, 3x3";
+		case TextFrameBottomThird: rect = CGRectMake(0, 2*SELF_HEIGHT/3, SELF_WIDTH, SELF_HEIGHT/3);
 			break;
-		case LogoPositionBottomLeft3: text = @"Bottom Left, 3x3";
+		case TextFrameTopQuarter: rect =  CGRectMake(0, 0, SELF_WIDTH, SELF_HEIGHT/4);
 			break;
-		case LogoPositionBottomCenter3: text = @"Bottom Center, 3x3";
+		case TextFrameBottomQuarter: rect = CGRectMake(0, 3*SELF_HEIGHT/4, SELF_WIDTH, SELF_HEIGHT/4);
 			break;
-		case LogoPositionBottomRight3: text = @"Bottom Right, 3x3";
+		case TextFrameLeftHalf: rect = CGRectMake(0, 0, SELF_WIDTH/2, SELF_HEIGHT);
 			break;
-		case LogoPositionTopLeft4: text = @"Top Left, 4x4";
-			break;
-		case LogoPositionTopCenter4: text = @"Top Center, 1/4";
-			break;
-		case LogoPositionTopRight4: text = @"Top Right, 4x4";
-			break;
-		case LogoPositionBottomLeft4: text = @"Bottom Left, 4x4";
-			break;
-		case LogoPositionBottomCenter4: text = @"Bottom Center, 4x4";
-			break;
-		case LogoPositionBottomRight4: text = @"Bottom Right, 4x4";
-			break;
-		case LogoPositionTopLeft5: text = @"Top Left, 5x5";
-			break;
-		case LogoPositionTopRight5: text = @"Top Right, 5x5";
-			break;
-		case LogoPositionBottomLeft5: text = @"Bottom Left, 5x5";
-			break;
-		case LogoPositionBottomRight5: text = @"Bottom Right, 5x5";
+		case TextFrameRightHalf: rect = CGRectMake(SELF_WIDTH/2, 0, SELF_WIDTH/2, SELF_HEIGHT);
 			break;
 		default:
 			break;
 	}
-	return text;
+	return rect;
 }
 
 @end

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZZk-bb-dmL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -22,6 +23,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBw-1o-w8y">
                                 <rect key="frame" x="548" y="512" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BBw-1o-w8y" secondAttribute="height" multiplier="1:1" id="P7Q-hz-hgS"/>
+                                </constraints>
                                 <state key="normal" image="shuffle">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -29,13 +33,21 @@
                                     <action selector="shuffleAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BHe-Vq-q1T"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EB3-Pj-hbP">
+                                <rect key="frame" x="274" y="72" width="54" height="29"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.15686274509803921" green="0.31372549019607843" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BBw-1o-w8y" secondAttribute="bottom" id="44E-9j-aCO"/>
                             <constraint firstItem="yyN-r3-ro3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="BQN-6X-kdx"/>
+                            <constraint firstItem="EB3-Pj-hbP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Iht-9O-lfC"/>
                             <constraint firstItem="yyN-r3-ro3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="Sve-Mp-N5i"/>
                             <constraint firstItem="BBw-1o-w8y" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="jT7-dp-e1O"/>
+                            <constraint firstAttribute="centerX" secondItem="EB3-Pj-hbP" secondAttribute="centerX" constant="-0.5" id="qCY-Gt-eVf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yyN-r3-ro3" secondAttribute="bottom" id="saB-MY-ddI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yyN-r3-ro3" secondAttribute="trailing" constant="-16" id="sgU-Tk-OFC"/>
                         </constraints>
@@ -45,6 +57,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="yyN-r3-ro3" id="f1k-JC-MOW"/>
+                        <outlet property="informationLabel" destination="EB3-Pj-hbP" id="cmO-E9-6pG"/>
                         <outlet property="shuffleButton" destination="BBw-1o-w8y" id="IDS-Ag-PYy"/>
                     </connections>
                 </viewController>

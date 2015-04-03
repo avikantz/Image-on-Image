@@ -1,14 +1,13 @@
 //
-//  UIImage+LogoOnImage.h
+//  UIImage+ThingsOnImage.h
 //  LogoOnImageDemo
 //
-//  Created by Avikant Saini on 3/30/15.
+//  Created by Avikant Saini on 4/3/15.
 //  Copyright (c) 2015 avikantz. All rights reserved.
 //
 
 @import UIKit;
 @import Accelerate;
-#import <UIKit/UIKit.h>
 
 #define kDefaultImage [UIImage imageNamed:@"defaultImage"]
 
@@ -74,26 +73,50 @@ typedef NS_ENUM(NSInteger, ImagePosition) {
 	ImagePositionBottomMiddle,
 	/// The bottom right position of any frame.
 	ImagePositionBottomRight,
-	
 	/// Random border frame and scale.
 	ImagePositionRandom,
 };
 
-@interface UIImage (LogoOnImage)
+typedef NS_ENUM(NSInteger, TextFrame) {
+	/// The entire image
+	TextFrameWhole,
+	/// The top half of the whole image (chopped Horizontally)
+	TextFrameTopHalf,
+	/// The bottom half of the whole image (chopped Horizontally)
+	TextFrameBottomHalf,
+	/// The left half of the whole image (chopped Vertically)
+	TextFrameLeftHalf,
+	/// The right half of the whole image (chopped Vertically)
+	TextFrameRightHalf,
+	/// The top third of the whole image (chopped Horizontally)
+	TextFrameTopThird,
+	/// The center third of the whole image (chopped Horizontally)
+	TextFrameCenterThird,
+	/// The bottom third of the whole image (chopped Horizontally)
+	TextFrameBottomThird,
+	/// The top quarter of the whole image (chopped Horizontally)
+	TextFrameTopQuarter,
+	/// The bottom quarter of the whole image (chopped Horizontally)
+	TextFrameBottomQuarter,
+};
 
-/** 
+@interface UIImage (ThingsOnImage)
+
+#pragma mark - Image on Image
+
+/**
  * Returns an UIImage after burning the default logo/image (included in the main bundle) to the image.
  */
 -(UIImage *)addDefaultLogoToRandomPosition;
 
-/** 
+/**
  * Returns an UIImage after burning the default logo/image (included in the main bundle) to the image.
  * @param position The position at which the image is to be burned.
  * @return UIImage
  */
 -(UIImage *)addDefaultLogoToPosition:(LogoPosition)position;
 
-/** 
+/**
  * Returns an UIImage after burning another image to a Position.
  * @param image The image to be added to the original image. (PNG with clear background preferred if it's a logo)
  * @param position The position at which the image is to be burned.
@@ -101,7 +124,7 @@ typedef NS_ENUM(NSInteger, ImagePosition) {
  */
 -(UIImage *)addLogoFromImage:(UIImage *)image AtPosition:(LogoPosition)position;
 
-/** 
+/**
  * Returns an UIImage after burning another image to a Position with Opacity.
  * @param image The image to be added to the original image. (PNG with clear background preferred if it's a logo)
  * @param position The position at which the image is to be burned.
@@ -110,7 +133,7 @@ typedef NS_ENUM(NSInteger, ImagePosition) {
  */
 -(UIImage *)addLogoFromImage:(UIImage *)image AtPosition:(LogoPosition)position WithOpacity:(CGFloat)alpha;
 
-/** 
+/**
  * Returns an UIImage after burning another image to a Position with Opacity and Blend Mode.
  * @param image The image to be added to the original image. (PNG with clear background preferred if it's a logo)
  * @param position The position at which the image is to be burned.
@@ -140,18 +163,14 @@ typedef NS_ENUM(NSInteger, ImagePosition) {
  */
 -(UIImage *)addLogoFromImage:(UIImage *)image InRect:(CGRect)rect Opacity:(CGFloat)alpha andBlendMode:(CGBlendMode)blendMode;
 
-/**
- * Returns the text like "Middle Right 3x3", or "Top Left, 4x4" for random position
- * @return NSString
- */
--(NSString *)getTextForRandomPosition;
+#pragma mark - Text on Image
 
 /**
- * Returns the text like "Middle Right 3x3", or "Top Left, 4x4" for a position
- * @param position The position for image
- * @return NSString
+ * Returns the image after adding text with attributes to the image in a frame (Auto resizing of text to fit the frame enabled.)
  */
--(NSString *)textForImagePosition:(LogoPosition)position;
+-(UIImage *)addText:(NSString *)text withFontName:(NSString *)fontName andSize:(CGFloat)fontSize Color:(UIColor *)color Alignment:(NSTextAlignment)textAlignment OutlineColor:(UIColor *)outlineColor OutlineThickness:(CGFloat)outlineThickness Shadow:(NSShadow *)shadow atPosition:(TextFrame)textFrame;
+
+#pragma mark - Other
 
 /**
  * Returns the frame for an image for scale. @code scale > 1 @endcode denotes frame of the size less than the size of the image. @code scale = 1 @endcode denotes frame of the size of the image. @code scale < 1 @endcode denotes frame of the size larger than the size of the image.
@@ -161,5 +180,16 @@ typedef NS_ENUM(NSInteger, ImagePosition) {
  * @return CGRect
  */
 -(CGRect)getBorderRectForImage:(UIImage *)image Scale:(CGFloat)scale andPosition:(ImagePosition)position;
+
+/**
+ * Returns the string for a blend Mode. @code NSString *string = [UIImage getTextForBlendMode:kCGBlendModeOverlay]; @endcode
+ * @param blendMode The CGBlendMode you want the string for.
+ */
++(NSString *)getTextForBlendMode:(CGBlendMode)blendMode;
+
+/**
+ * Returns the frame for placing text in the image (TextFrame enumeration)
+ */
+-(CGRect)getFrameForText:(TextFrame)textFrame;
 
 @end

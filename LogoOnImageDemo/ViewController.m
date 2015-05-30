@@ -35,7 +35,11 @@
 	_informationLabel.layer.cornerRadius = 4.f;
 	
 //	[self shuffleAction:self];
-	_imageView.image = [[UIImage imageNamed:@"02.jpg"] addText:@"Damn!" withFontName:@"HelveticaNeue-Thin" andSize:400.f Color:[UIColor colorWithWhite:1.0 alpha:0.5] Alignment:NSTextAlignmentRight OutlineColor:[UIColor clearColor] OutlineThickness:0.f Shadow:[NSShadow new] atPosition:TextFrameBottomQuarter];
+	_imageView.image = [[UIImage imageNamed:@"02.jpg"] addText:@"Welcome" withFontName:@"HelveticaNeue-Thin" andSize:400.f Color:[UIColor colorWithWhite:1.0 alpha:0.5] Alignment:NSTextAlignmentRight OutlineColor:[UIColor clearColor] OutlineThickness:0.f Shadow:[NSShadow new] atPosition:TextFrameBottomQuarter];
+}
+
+-(void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+	_imageView.image = [[UIImage imageNamed:@"01.jpg"] addText:@"Shake to Reposition" withFontName:@"Avenir-Light" andSize:250.f Color:[UIColor colorWithWhite:1.0 alpha:0.6] Alignment:NSTextAlignmentCenter OutlineColor:[UIColor clearColor] OutlineThickness:0.f Shadow:[NSShadow new] atPosition:arc4random_uniform(10)];
 }
 
 - (IBAction)shuffleAction:(id)sender {

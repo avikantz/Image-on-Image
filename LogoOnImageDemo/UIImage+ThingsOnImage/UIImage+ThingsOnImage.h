@@ -105,12 +105,12 @@ typedef NS_ENUM(NSInteger, TextFrame) {
 #pragma mark - Image on Image
 
 /**
- * Returns an UIImage after burning the default logo/image (included in the main bundle) to the image.
+ * Returns an UIImage after burning the default logo/image (named "defaultImage") (included in the main bundle) to the image.
  */
 -(UIImage *)addDefaultLogoToRandomPosition;
 
 /**
- * Returns an UIImage after burning the default logo/image (included in the main bundle) to the image.
+ * Returns an UIImage after burning the default logo/image (named "defaultImage") (included in the main bundle) to the image.
  * @param position The position at which the image is to be burned.
  * @return UIImage
  */
